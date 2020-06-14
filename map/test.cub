@@ -1,10 +1,10 @@
 R 1920 1080
-NO ./Texture/cat.xpm
-SO ./Texture
-WE ./Texture
-EA ./Texture
+NO ./Assets/cat.xpm
+SO ./Assets
+WE ./Assets
+EA ./Assets
 
-S ./sprite
+S ./Assets
 F 255,415,452
 C 625,2,0
 
