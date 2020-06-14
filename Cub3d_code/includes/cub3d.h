@@ -6,7 +6,7 @@
 /*   By: aducas <aducas@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 14:24:24 by aducas            #+#    #+#             */
-/*   Updated: 2020/03/10 13:32:29 by aducas           ###   ########lyon.fr   */
+/*   Updated: 2020/06/14 10:30:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "../../libft/include/libft.h"
 # include "../../libft/include/get_next_line.h"
 # include "../../libft/include/ft_printf.h"
-# include "../../minilibx-linux/mlx.h"
+# include "../../libmlx/mlx.h"
 
 # define ESC 	53
 # define A		0
