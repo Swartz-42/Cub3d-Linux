@@ -23,8 +23,7 @@ INCL 				=	cub3d.h
 INCLUDE				=	$(addprefix include/,$(INCL))
 
 PATH_SRC			=	Cub3d_code/srcs/
-SRC         		=   Cub3d_code/srcs/cub3d.c				\
-						Cub3d_code/srcs/display_window.c	\
+SRC         		=   Cub3d_code/srcs/display_window.c	\
 						Cub3d_code/srcs/ft_config.c			\
 						Cub3d_code/srcs/ft_rgb.c			\
 						Cub3d_code/srcs/gest_key.c			\
@@ -42,7 +41,7 @@ OBJSRC = $(SRC:.c=.o)
 all:	$(LIBFT) $(MINI_LIBX) $(NAME)
 
 $(NAME):	$(LIBFT) $(MINI_LIBX) $(OBJSRC)
-	@ gcc $(FLAGS) -O2 -o $(NAME) -I$(PATH_INC) -I$(PATH_INC_MINILIBX) $(MINI_LIBX) $(LIBFT) -lX11 -lbsd -lm -lXext $(OBJSRC)
+	@ gcc $(FLAGS) -o $(NAME) Cub3d_code/srcs/cub3d.c $(OBJSRC) $(LIBFT) $(MINI_LIBX) -lX11 -lbsd -lm -lXext 
 	@ printf "\033[2K\033[0;32mCompilation terminée\n\033[1m"
 
 $(LIBFT):

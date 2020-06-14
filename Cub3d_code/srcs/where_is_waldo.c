@@ -22,7 +22,7 @@ int		chr_player(char **map_ok, int y, int x)
 			return (1);
 		}
 	}
-	while (map_ok[++y] != '\0')
+	while (map_ok[++y][0] != '\0')
 	{
 		if (ft_strchrstr(map_ok[y], "NSEW"))
 		{
@@ -41,7 +41,7 @@ int		find_player(char **map_ok, t_cub3d *cub3d)
 	x = 0;
 	y = 0;
 	while ((x = ft_strchrstr(map_ok[y], "NSEW")) == 0
-		&& map_ok[y + 1] != '\0')
+		&& map_ok[y + 1][0] != '\0')
 		y++;
 	if (!x)
 	{

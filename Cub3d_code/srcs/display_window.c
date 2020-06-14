@@ -26,9 +26,9 @@ int		window(t_cub3d cub3d)
 		ft_printf("Error\nCould not create cub3d window\n");
 		return (1);
 	}
-	mlx_hook(cub3d.win.win_ptr, KeyPress, NoEventMask, ft_parse_key, &cub3d);
-	mlx_hook(cub3d.win.win_ptr, KeyRelease, NoEventMask, ft_release, &cub3d);
-	mlx_hook(cub3d.win.win_ptr, DestroyNotify, NoEventMask, ft_exit, 0);
+	mlx_hook(cub3d.win.win_ptr, 02, 1L << 0, ft_parse_key, &cub3d);
+	mlx_hook(cub3d.win.win_ptr, 03, 1L << 1, ft_release, &cub3d);
+	mlx_hook(cub3d.win.win_ptr, 33, 1L << 17, ft_exit, 0);
 	mlx_loop(cub3d.win.mlx_ptr);
 	return (0);
 }
