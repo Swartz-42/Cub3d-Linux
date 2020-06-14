@@ -37,7 +37,11 @@ all:	init $(NAME)
 
 init:
 	@ echo "$(_INFO) Initialize $(NAME)"
+<<<<<<< HEAD
 	@ $(shell mkdir -p $(PATH_OBJ))
+=======
+	$(shell mkdir -p $(PATH_OBJ))
+>>>>>>> fb8175628eb35a9aed63fce8aeb43b8e62db1250
 	@ make -C $(PATH_LIBFT)
 	@ make -C $(PATH_LIBMLX)
 

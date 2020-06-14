@@ -41,7 +41,11 @@ int		find_player(char **map_ok, t_cub3d *cub3d)
 	x = 0;
 	y = 0;
 	while ((x = ft_strchrstr(map_ok[y], "NSEW")) == 0
+<<<<<<< HEAD
 		&& map_ok[y] != '\0')
+=======
+		&& map_ok[y + 1] != '\0')
+>>>>>>> fb8175628eb35a9aed63fce8aeb43b8e62db1250
 		y++;
 	if (!x)
 	{
