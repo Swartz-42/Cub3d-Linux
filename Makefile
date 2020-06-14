@@ -6,7 +6,7 @@
 #    By: lrobert <lrobert@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2020/02/10 13:42:37 by lrobert      #+#   ##    ##    #+#        #
-#    Updated: 2020/02/10 13:42:37 by lrobert     ###    #+. /#+    ###.fr      #
+#    Updated: 2020/06/14 10:25:32 by user42           ###   ########.fr        #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -16,7 +16,7 @@ NAME        		=   Cub3d
 FLAGS       		=   -Wall -Wextra -Werror
 
 PATH_INC			=	Cub3d_code/includes
-PATH_INC_MINILIBX	=	minilibx-linux
+PATH_INC_MINILIBX	=	libmlx
 
 INCL 				=	cub3d.h
 
@@ -33,8 +33,8 @@ SRC         		=   Cub3d_code/srcs/display_window.c	\
 LIBFT_PATH			=	libft
 LIBFT				=	libft/libft.a
 
-MINI_LIBX_PATH		=	minilibx-linux
-MINI_LIBX			=	minilibx-linux/libmlx_Linux.a
+MINI_LIBX_PATH		=	libmlx
+MINI_LIBX			=	libmlx/libmlx_Linux.a
 
 OBJSRC = $(SRC:.c=.o)
 
