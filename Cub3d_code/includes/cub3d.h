@@ -10,12 +10,12 @@
 # include "../../libft/include/ft_printf.h"
 # include "../../libmlx/mlx.h"
 
-# define ESC 	53
-# define A		0
-# define S		1
-# define D		2
-# define W		13
-# define MAJ	257
+# define ESC 	65307
+# define A		113
+# define S		115
+# define D		100
+# define W		122
+# define MAJ	65505
 
 typedef	struct		s_config
 {
