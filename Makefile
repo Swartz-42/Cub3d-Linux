@@ -1,68 +1,61 @@
-# **************************************************************************** #
-#                                                           LE - /             #
-#                                                               /              #
-#    Makefile                                         .::    .:/ .      .::    #
-#                                                  +:+:+   +:    +:  +:+:+     #
-#    By: lrobert <lrobert@student.le-101.fr>        +:+   +:    +:    +:+      #
-#                                                  #+#   #+    #+    #+#       #
-#    Created: 2020/02/10 13:42:37 by lrobert      #+#   ##    ##    #+#        #
-#    Updated: 2020/06/14 10:25:32 by user42           ###   ########.fr        #
-#                                                          /                   #
-#                                                         /                    #
-# **************************************************************************** #
+.PHONY: all clean fclean re
 
-NAME        		=   Cub3d
+# Name of file
+NAME		=	Cub3D
 
-FLAGS       		=   -Wall -Wextra -Werror
+# Name directory
+PATH_INC	=	Cub3d_code/includes
+PATH_SRC	=	Cub3d_code/srcs
+PATH_OBJ	=	Cub3d_code/objs
+PATH_LIBFT	=	libft
+PATH_LIBMLX	=	libmlx
 
-PATH_INC			=	Cub3d_code/includes
-PATH_INC_MINILIBX	=	libmlx
+# List of sources
+SRCS		=	display_window.c ft_config.c ft_rgb.c gest_key.c\
+				where_is_waldo.c
+OBJS		=	$(addprefix $(PATH_OBJ)/, $(SRCS:.c=.o))
+INCS		=	$(addprefix $(PATH_INC)/, cub3d.h)
 
-INCL 				=	cub3d.h
+# Commands of compilation
+COMP		=	clang
+COMP_FLAG	=	-Wall -Werror #-Wextra
+COMP_ADD	=	-I$(PATH_INC)
 
-INCLUDE				=	$(addprefix include/,$(INCL))
+# Others Command
+RM			=	/bin/rm
 
-PATH_SRC			=	Cub3d_code/srcs/
-SRC         		=   Cub3d_code/srcs/display_window.c	\
-						Cub3d_code/srcs/ft_config.c			\
-						Cub3d_code/srcs/ft_rgb.c			\
-						Cub3d_code/srcs/gest_key.c			\
-						Cub3d_code/srcs/where_is_waldo.c
-						
+# Color Code and template code
+_YELLOW		=	\e[38;5;184m
+_GREEN		=	\e[38;5;46m
+_RESET		=	\e[0m
+_INFO		=	[$(_YELLOW)INFO$(_RESET)]
+_SUCCESS	=	[$(_GREEN)SUCCESS$(_RESET)]
 
-LIBFT_PATH			=	libft
-LIBFT				=	libft/libft.a
+# Functions
+all:	init $(NAME)
+	@ echo "$(_SUCCESS) Compilation done"
 
-MINI_LIBX_PATH		=	libmlx
-MINI_LIBX			=	libmlx/libmlx_Linux.a
+init:
+	@ echo "$(_INFO) Initialize $(NAME)"
+	$(shell mkdir -p $(PATH_OBJ))
+	@ make -C $(PATH_LIBFT)
+	@ make -C $(PATH_LIBMLX)
 
-OBJSRC = $(SRC:.c=.o)
+$(NAME): $(OBJS) $(INCS)
+	@ $(COMP) $(COMP_FLAG) $(COMP_ADD) -o $(NAME) $(PATH_SRC)/cub3d.c $(OBJS) -Llibft -lft -Llibmlx -lmlx -lX11 -lbsd -lm -lXext
 
-all:	$(LIBFT) $(MINI_LIBX) $(NAME)
-
-$(NAME):	$(LIBFT) $(MINI_LIBX) $(OBJSRC)
-	@ gcc $(FLAGS) -o $(NAME) Cub3d_code/srcs/cub3d.c $(OBJSRC) $(LIBFT) $(MINI_LIBX) -lX11 -lbsd -lm -lXext 
-	@ printf "\033[2K\033[0;32mCompilation terminée\n\033[1m"
-
-$(LIBFT):
-	@ make -C $(LIBFT_PATH)
-
-$(MINI_LIBX):
-	@ make -C $(MINI_LIBX_PATH)
-
-%.o: $(PATH_SRC)%.c $(INCLUDE)
-	@ printf "\033[2K\033[0;38;5;226mCompilation de \033[1m$< ..."
-	@ gcc $(OBJSRC) -I$(PATH_INC) -c $< -o $@
-
+$(PATH_OBJ)/%.o: $(PATH_SRC)/%.c $(INCS)
+	@ $(COMP) $(COMP_FLAG) $(COMP_ADD) -c $< -o $@
+	@ echo "$(_INFO) Compilation of $*"
 
 clean:
-	@ rm -rf $(PATH_SRC)*.o
-	@ make -C $(LIBFT_PATH) clean
-	@ make -C $(MINI_LIBX_PATH) clean
+	@ $(RM) -rf $(PATH_OBJ)
+	@ make -C $(PATH_LIBFT) clean
+	@ make -C $(PATH_LIBMLX) clean
+	@ echo "$(_INFO) Deleted files and directory"
 
-fclean:	clean
-	@ rm -rf *.out
-	@ rm -rf $(NAME)
-	@ make -C $(LIBFT_PATH) fclean
+fclean: clean
+	@ $(RM) -rf $(NAME)
+	@ make -C $(PATH_LIBFT) fclean
 
-re:	fclean all
+re: fclean all

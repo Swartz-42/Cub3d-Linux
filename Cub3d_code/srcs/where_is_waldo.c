@@ -6,7 +6,7 @@
 /*   By: aducas <aducas@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:30:04 by aducas            #+#    #+#             */
-/*   Updated: 2020/03/10 13:31:50 by aducas           ###   ########lyon.fr   */
+/*   Updated: 2020/06/14 11:14:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		chr_player(char **map_ok, int y, int x)
 			return (1);
 		}
 	}
-	while (map_ok[++y][0] != '\0')
+	while (map_ok[++y] != '\0')
 	{
 		if (ft_strchrstr(map_ok[y], "NSEW"))
 		{
@@ -41,7 +41,7 @@ int		find_player(char **map_ok, t_cub3d *cub3d)
 	x = 0;
 	y = 0;
 	while ((x = ft_strchrstr(map_ok[y], "NSEW")) == 0
-		&& map_ok[y + 1][0] != '\0')
+		&& map_ok[y + 1] != '\0')
 		y++;
 	if (!x)
 	{
