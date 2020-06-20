@@ -43,5 +43,11 @@ int		find_player(char **map_ok, t_cub3d *cub3d)
 	}
 	if (chr_player(map_ok, y, x))
 		return (1);
+	if (map_ok[y][x + 1] == ' ' || map_ok[y][x - 1] == ' '
+		|| map_ok[y + 1][x] == ' ' || map_ok[y - 1][x] == ' ')
+	{
+		ft_printf("Error\nSpace near player");
+		return (1);
+	}
 	return (0);
 }

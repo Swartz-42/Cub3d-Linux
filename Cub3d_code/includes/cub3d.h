@@ -57,23 +57,32 @@ typedef	struct		s_cub3d
 	t_player		player;
 }					t_cub3d;
 
+//rgb
 void				ft_rgb_ceiling(t_config *config, char *line);
 void				ft_rgb_floor(t_config *config, char *line);
 void				ft_rgb(char *line, t_config *config);
 
+//config
 void				ft_init_config(t_config *config);
 void				resolution(char *line, t_config *config);
 int					ft_read_line(int fd, char *line, t_config *config);
 void				ft_parse3d(char *line, t_config *config);
 
+//player
 int					chr_player(char **map_ok, int y, int x);
 int					find_player(char **map_ok, t_cub3d *cub3d);
 
+//window
 int					window(t_cub3d cub3d);
 int					ft_parse_key(int key, t_cub3d *cub3d);
 int					ft_release(int key, t_cub3d *cub3d);
 void				ft_mouv(int key, t_player *player);
 void				ft_release_mouv(int key, t_player *player);
 int					ft_exit(t_window *win);
+
+//check_map
+int					zero_verif(char **map_ok);
+int					verif_map(char **map_ok);
+char				**ft_parse_map(t_cub3d *cub3d);
 
 #endif

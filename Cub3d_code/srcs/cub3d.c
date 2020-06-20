@@ -1,7 +1,6 @@
 #include "../includes/cub3d.h"
 
-//recuperais la map et les options avec les verifs
-// TODO Verif map, affichage map, position player
+// TODO tester Verif map, affichage map, position player
 
 int		gest_error_arg(int ac, char **av)
 {
@@ -20,16 +19,6 @@ int		gest_error_arg(int ac, char **av)
 		return (0);
 	}
 	return (fd);
-}
-
-char	**ft_parse_map(t_cub3d *cub3d)
-{
-	char	**map_ok;
-
-	map_ok = ft_split(cub3d->config.map, '\n');
-	if (find_player(map_ok, cub3d))
-		return (0);
-	return (map_ok);
 }
 
 int		main(int ac, char **av)

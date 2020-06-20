@@ -32,7 +32,7 @@ static char		*ft_add(char *str, const char *s, int start, int end)
 		str[i] = s[start + i];
 		i++;
 	}
-	str[i] = 0;
+	str[i] = '\n';
 	return (str);
 }
 
