@@ -10,10 +10,10 @@ int		ft_exit(t_window *win)
 
 void	ft_release_mouv(int key, t_player *player)
 {
-	/*if (key == W || key == S)
-		player->posx = 0;
+	if (key == W || key == S)
+		player->vitx = 0;
 	if (key == A || key == D)
-		player->posy = 0;*/
+		player->vity = 0;
 }
 
 int		ft_release(int key, t_cub3d *cub3d)
@@ -25,15 +25,15 @@ int		ft_release(int key, t_cub3d *cub3d)
 
 void	ft_mouv(int key, t_player *player)
 {
-	if (key == W && player->posx != 1)
-		player->posx += 1;
-	else if (key == S && player->posx != -1)
-		player->posx += -1;
-	if (key == A && player->posy != -1)
-		player->posy += -1;
-	else if (key == D && player->posy != 1)
-		player->posy += 1;
-	ft_printf("posx: %d posy: %d\n", player->posx, player->posy);
+	if (key == W && player->vitx < 1)
+		player->vitx += 1;
+	else if (key == S && player->vitx > -1)
+		player->vitx += -1;
+	if (key == A && player->vity > -1)
+		player->vity += -1;
+	else if (key == D && player->vity < 1)
+		player->vity += 1;
+	printf("vitx: %d vity: %d\n", player->vitx, player->vity);
 }
 
 int		ft_parse_key(int key, t_cub3d *cub3d)

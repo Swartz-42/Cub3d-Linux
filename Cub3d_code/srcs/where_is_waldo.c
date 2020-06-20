@@ -40,6 +40,8 @@ int		find_player(char **map_ok, t_cub3d *cub3d)
 	{
 		cub3d->player.posy = y;
 		cub3d->player.posx = x;
+		cub3d->player.vitx = 0;
+		cub3d->player.vity = 0;
 	}
 	if (chr_player(map_ok, y, x))
 		return (1);
