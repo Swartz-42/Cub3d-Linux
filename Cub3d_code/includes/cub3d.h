@@ -46,8 +46,8 @@ typedef	struct		s_window
 
 typedef struct		s_player
 {
-	float			posx;
-	float			posy;
+	int			posx;
+	int			posy;
 	int				vitx;
 	int				vity;
 }					t_player;
@@ -79,11 +79,13 @@ void				ft_rgb(char *line, t_config *config);
 //key control
 int					ft_exit(t_window *win);
 void				ft_release_mouv(int key, t_player *player);
-void				ft_mouv(int key, t_player *player);
+void				ft_mouv(int key, t_player *player, t_config *config);
 int					ft_release(int key, t_cub3d *cub3d);
 int					ft_parse_key(int key, t_cub3d *cub3d);
 
 //player
 int					find_player(char **map_ok, t_cub3d *cub3d);
+
+void				minimap(t_cub3d cub3d);
 
 #endif
