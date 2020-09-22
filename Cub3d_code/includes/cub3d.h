@@ -5,36 +5,39 @@
 # include <stdarg.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <math.h>
 # include "../../libft/include/libft.h"
 # include "../../libft/include/get_next_line.h"
 # include "../../libft/include/ft_printf.h"
 # include "../../libmlx/mlx.h"
 
-# define ESC 	65307
-# define A		113
-# define S		115
-# define D		100
-# define W		122
-# define MAJ	65505
+# define ESC 			65307
+# define A				113
+# define S				115
+# define D				100
+# define W				122
+# define MAJ			65505
+# define FD				65361
+# define FG				65363
+# define FOV			60
+# define BLOCK_SIZE		64
 
 typedef	struct		s_config
 {
 	enum e_boolean	fsave;
-	int				x;
-	int				y;
+	float			POV;
+	float			deep;
 	char			*textno;
 	char			*textso;
 	char			*textwe;
 	char			*textea;
 	char			*sprite;
-	int				r_floor;
-	int				g_floor;
-	int				b_floor;
-	int				r_ceiling;
-	int				g_ceiling;
-	int				b_ceiling;
 	char			*map;
 	char			**map_ok;
+	int				x_max;
+	int				y_max;
+	int				rgb_floor;
+	int				rgb_ceiling;
 }					t_config;
 
 typedef	struct		s_window
@@ -42,14 +45,19 @@ typedef	struct		s_window
 	void			*mlx_ptr;
 	void			*win_ptr;
 	void			*img;
+	float			x;
+	float			y;
 }					t_window;
 
 typedef struct		s_player
 {
-	int			posx;
-	int			posy;
-	int				vitx;
-	int				vity;
+	float			fposx;
+	float			fposy;
+	float			vit;
+	enum e_boolean	frontward;
+	enum e_boolean	backward;
+	enum e_boolean	rightward;
+	enum e_boolean	leftward;
 }					t_player;
 
 typedef	struct		s_cub3d
@@ -67,25 +75,27 @@ int					window(t_cub3d cub3d);
 
 //config
 void				ft_init_config(t_config *config);
-void				resolution(char *line, t_config *config);
-void				ft_parse3d(char *line, t_config *config);
-int					ft_read_line(int fd, char *line, t_config *config);
+int					ft_read_line(int fd, char *line, t_cub3d *cub3d);
 
 //rgb
-void				ft_rgb_ceiling(t_config *config, char *line);
-void				ft_rgb_floor(t_config *config, char *line);
-void				ft_rgb(char *line, t_config *config);
+int					rgb_int(unsigned char alpha, unsigned char r, unsigned char g, unsigned char b);
+int					ft_rgb(char *line, t_config *config);
 
 //key control
 int					ft_exit(t_window *win);
-void				ft_release_mouv(int key, t_player *player);
-void				ft_mouv(int key, t_player *player, t_config *config);
 int					ft_release(int key, t_cub3d *cub3d);
 int					ft_parse_key(int key, t_cub3d *cub3d);
 
 //player
 int					find_player(char **map_ok, t_cub3d *cub3d);
+void				ft_mouv(t_player *player, t_config *config);
 
+//display
+int					display_game(t_cub3d *cub3d);
+void				display_wall(int x, float projected_wall, t_cub3d cub3d);
 void				minimap(t_cub3d cub3d);
+void				scan(t_cub3d *cub3d);
+void				draw_floor(t_cub3d cub3d, int x);
+void				draw_ceiling(t_cub3d cub3d, int x);
 
 #endif

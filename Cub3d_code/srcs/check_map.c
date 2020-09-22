@@ -37,10 +37,8 @@ int zero_verif(char **map_ok)
 			{
                 if (zero_verif_two(map_ok, y, x))
 					return (1);
-				x++;
 			}
-			else
-				x++;
+			x++;
 		}
 		x = 0;
 		y++;
@@ -86,13 +84,21 @@ char	**ft_parse_map(t_cub3d *cub3d)
 {
 	char	**map_ok;
 
-	map_ok = ft_split(cub3d->config.map, '\n');
-	if (find_player(map_ok, cub3d))
-		return (0);
-	if (verif_map(map_ok))
+	if (ft_strchr(cub3d->config.map, '1'))
 	{
-		ft_printf("Error\nIncorrect Map");
-		return (0);
+		map_ok = ft_split(cub3d->config.map, '\n');
+		if (find_player(map_ok, cub3d))
+			return (0);
+		if (verif_map(map_ok))
+		{
+			ft_printf("Error\nIncorrect Map");
+			return (0);
+		}
+		return (map_ok);
 	}
-	return (map_ok);
+	else
+	{
+		ft_printf("ERROR\nNo map found\n");
+		return (0);	
+	}
 }

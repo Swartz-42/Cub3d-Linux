@@ -21,6 +21,17 @@ int		chr_player(char **map_ok, int y, int x)
 	return (0);
 }
 
+void	player_found(t_cub3d *cub3d, int y, int x)
+{
+	cub3d->player.fposy = (y * BLOCK_SIZE) - (BLOCK_SIZE / 2);
+	cub3d->player.fposx = (x * BLOCK_SIZE) + (BLOCK_SIZE / 2);
+	cub3d->player.vit = 5;
+	cub3d->player.frontward = FALSE;
+	cub3d->player.backward = FALSE;
+	cub3d->player.rightward = FALSE;
+	cub3d->player.leftward = FALSE;
+}
+
 int		find_player(char **map_ok, t_cub3d *cub3d)
 {
 	int		y;
@@ -29,7 +40,7 @@ int		find_player(char **map_ok, t_cub3d *cub3d)
 	x = 0;
 	y = 0;
 	while ((x = ft_strchrstr(map_ok[y], "NSEW")) == 0
-		&& map_ok[y] != '\0')
+		&& map_ok[y + 1] != NULL)
 		y++;
 	if (!x)
 	{
@@ -37,12 +48,7 @@ int		find_player(char **map_ok, t_cub3d *cub3d)
 		return (1);
 	}
 	else
-	{
-		cub3d->player.posy = y;
-		cub3d->player.posx = x;
-		cub3d->player.vitx = 0;
-		cub3d->player.vity = 0;
-	}
+		player_found(cub3d, y, x);
 	if (chr_player(map_ok, y, x))
 		return (1);
 	if (map_ok[y][x + 1] == ' ' || map_ok[y][x - 1] == ' '

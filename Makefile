@@ -11,8 +11,9 @@ PATH_LIBFT	=	libft
 PATH_LIBMLX	=	libmlx
 
 # List of sources
-SRCS		=	display_window.c ft_config.c ft_rgb.c Keys_manag.c\
-				where_is_waldo.c check_map.c
+SRCS		=	window.c ft_config.c ft_rgb.c Keys_manag.c\
+				where_is_waldo.c check_map.c Ray.c display.c\
+				move.c minimap.c
 OBJS		=	$(addprefix $(PATH_OBJ)/, $(SRCS:.c=.o))
 INCS		=	$(addprefix $(PATH_INC)/, cub3d.h)
 

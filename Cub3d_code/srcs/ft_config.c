@@ -2,67 +2,85 @@
 
 void	ft_init_config(t_config *config)
 {
-	config->x = 0;
-	config->y = 0;
 	config->textno = ft_strdup("");
 	config->textso = ft_strdup("");
 	config->textwe = ft_strdup("");
 	config->textea = ft_strdup("");
 	config->sprite = ft_strdup("");
-	config->r_floor = 0;
-	config->g_floor = 0;
-	config->b_floor = 0;
-	config->r_ceiling = 0;
-	config->g_ceiling = 0;
-	config->b_ceiling = 0;
+	config->rgb_ceiling = rgb_int(0,0,0,255);
+	config->rgb_floor = rgb_int(0,0,255,0);
 	config->map = ft_strdup("");
+	config->y_max = 0;
+	config->x_max = 0;
 }
 
-void	resolution(char *line, t_config *config)
+static void	resolution(char *line, t_window *win)
 {
 	int i;
 
 	i = 0;
-	config->x = ft_atoi(line + 1);
+	win->x = ft_atoi(line + 1);
 	i = ft_strlen(line);
 	while (!ft_isdigit(line[i]))
 		i--;
 	while (ft_isdigit(line[i]))
 		i--;
-	config->y = ft_atoi(line + i);
+	win->y = ft_atoi(line + i);
 }
 
-void	ft_parse3d(char *line, t_config *config)
+static char	*path(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] != '.' && i < ft_strlen(line))
+		i++;
+	if (i < ft_strlen(line))
+		return(ft_strdup(line +i));
+	else
+		return("ERROR\nBad path\n");
+}
+
+int			ft_parse3d(char *line, t_cub3d *cub3d)
 {
 	if (line[0] == 'R')
-		resolution(line, config);
+		resolution(line, &cub3d->win);
 	else if (line[0] == 'N' && line[1] == 'O')
-		config->textno = ft_strdup(line + 3);
+		cub3d->config.textno = path(line);
 	else if (line[0] == 'S' && line[1] == 'O')
-		config->textso = ft_strdup(line + 3);
+		cub3d->config.textso = path(line);
 	else if (line[0] == 'W' && line[1] == 'E')
-		config->textwe = ft_strdup(line + 3);
+		cub3d->config.textwe = path(line);
 	else if (line[0] == 'E' && line[1] == 'A')
-		config->textea = ft_strdup(line + 3);
+		cub3d->config.textea = path(line);
 	else if (line[0] == 'S')
-		config->sprite = ft_strdup(line + 2);
+		cub3d->config.sprite = path(line);
 	else if (line[0] == 'F' || line[0] == 'C')
-		ft_rgb(line, config);
+	{
+		if (ft_rgb(line, &cub3d->config) == -1)
+			return (-1);
+	}
 	else
+	{
 		ft_printf("ERROR\nInvalid parameter\n");
+		return (-1);
+	}
+	return (0);
 }
 
-int		ft_read_line(int fd, char *line, t_config *config)
+int			ft_read_line(int fd, char *line, t_cub3d *cub3d)
 {
 	int ret;
 
 	ret = get_next_line(fd, &line);
 	if (ft_comp(line[0], "RNSWEFC"))
-		ft_parse3d(line, config);
-	else if (line[0] == '1' && line[ft_strlen(line) - 1] == '1')
-		config->map = ft_strjoin(config->map, ft_strjoin(line, "\n"));
-	else if ((line[0] != '1' || line[ft_strlen(line) - 1] != '1') &&
-			(read(fd, line, 0) >= 1))
+	{
+		if (ft_parse3d(line, cub3d))
+			return(-1);
+	}
+	else if (ft_comp('1', line))
+		cub3d->config.map = ft_strjoin(cub3d->config.map, ft_strjoin(line, "\n"));
+	else if (!(ft_comp('1', line)) && (read(fd, line, 0) > 0))
 	{
 		ft_printf("ERROR\nInvalid map\n");
 		return (-1);

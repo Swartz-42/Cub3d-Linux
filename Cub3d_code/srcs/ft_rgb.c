@@ -1,41 +1,56 @@
 #include "../includes/cub3d.h"
 
-void	ft_rgb_ceiling(t_config *config, char *line)
+static int		skip(char *line, int i)
 {
-	int	i;
-
-	i = 0;
+	while (ft_isdigit(line[i]))
+		i++;
 	while (!ft_isdigit(line[i]))
 		i++;
-	config->r_ceiling = ft_atoi(line + i);
-	while (ft_isdigit(line[i]))
-		i++;
-	config->g_ceiling = ft_atoi(line + ++i);
-	while (ft_isdigit(line[i]))
-		i++;
-	config->b_ceiling = ft_atoi(line + ++i);
+	return (i);
 }
 
-void	ft_rgb_floor(t_config *config, char *line)
+static int		ft_add_rgb(t_config *config, char *line)
 {
 	int	i;
+	int r;
+	int g;
+	int b;
 
-	i = 0;
-	while (!ft_isdigit(line[i]))
-		i++;
-	config->r_floor = ft_atoi(line + i);
-	while (ft_isdigit(line[i]))
-		i++;
-	config->g_floor = ft_atoi(line + ++i);
-	while (ft_isdigit(line[i]))
-		i++;
-	config->b_floor = ft_atoi(line + ++i);
+	i = skip(line, 0);
+	r = ft_atoi(line + i);
+	i = skip(line, i);
+	g = ft_atoi(line + ++i);
+	i = skip(line, i);
+	b = ft_atoi(line + ++i);
+	if (r > 255 || r < 0 || g > 255 || g < 0 || b > 255 || b < 0)
+	{
+		ft_printf("Error\nColors for ceiling or floor not in range [0,255]\n");
+		return(-1);
+	}
+	return(rgb_int(0, r, g, b));
 }
 
-void	ft_rgb(char *line, t_config *config)
+int     		rgb_int(unsigned char alpha, unsigned char r, unsigned char g, unsigned char b)
 {
+    int rgb;
+
+    rgb = (int)alpha;
+    rgb = (rgb << 8) + (int)r;
+    rgb = (rgb << 8) + (int)g;
+    rgb = (rgb << 8) + (int)b;
+    return (rgb);
+}
+
+int				ft_rgb(char *line, t_config *config)
+{
+	int	rgb;
+
+	rgb = ft_add_rgb(config, line);
+	if (rgb == -1)
+		return(-1);
 	if (line[0] == 'C')
-		ft_rgb_ceiling(config, line);
+		config->rgb_ceiling = rgb;
 	else
-		ft_rgb_floor(config, line);
+		config->rgb_floor = rgb;
+	return(0);
 }
