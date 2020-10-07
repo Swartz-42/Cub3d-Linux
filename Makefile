@@ -12,8 +12,8 @@ PATH_LIBMLX	=	libmlx
 
 # List of sources
 SRCS		=	window.c ft_config.c ft_rgb.c Keys_manag.c\
-				where_is_waldo.c check_map.c Ray.c display.c\
-				move.c minimap.c
+				where_is_waldo.c check_map.c raycast.c display.c\
+				move.c minimap.c scan.c
 OBJS		=	$(addprefix $(PATH_OBJ)/, $(SRCS:.c=.o))
 INCS		=	$(addprefix $(PATH_INC)/, cub3d.h)
 

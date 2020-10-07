@@ -94,8 +94,10 @@ void				ft_mouv(t_player *player, t_config *config);
 int					display_game(t_cub3d *cub3d);
 void				display_wall(int x, float projected_wall, t_cub3d cub3d);
 void				minimap(t_cub3d cub3d);
+
+//raycast
+float       		rayon_h(t_cub3d cub3d, float alpha);
+float	        	rayon_v(t_cub3d cub3d, float alpha);
 void				scan(t_cub3d *cub3d);
-void				draw_floor(t_cub3d cub3d, int x);
-void				draw_ceiling(t_cub3d cub3d, int x);
 
 #endif

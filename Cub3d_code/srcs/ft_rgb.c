@@ -19,9 +19,9 @@ static int		ft_add_rgb(t_config *config, char *line)
 	i = skip(line, 0);
 	r = ft_atoi(line + i);
 	i = skip(line, i);
-	g = ft_atoi(line + ++i);
+	g = ft_atoi(line + i);
 	i = skip(line, i);
-	b = ft_atoi(line + ++i);
+	b = ft_atoi(line + i);
 	if (r > 255 || r < 0 || g > 255 || g < 0 || b > 255 || b < 0)
 	{
 		ft_printf("Error\nColors for ceiling or floor not in range [0,255]\n");

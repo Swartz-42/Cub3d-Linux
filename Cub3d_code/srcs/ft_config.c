@@ -7,14 +7,14 @@ void	ft_init_config(t_config *config)
 	config->textwe = ft_strdup("");
 	config->textea = ft_strdup("");
 	config->sprite = ft_strdup("");
-	config->rgb_ceiling = rgb_int(0,0,0,255);
-	config->rgb_floor = rgb_int(0,0,255,0);
+	config->rgb_ceiling = 0;
+	config->rgb_floor = 0;
 	config->map = ft_strdup("");
 	config->y_max = 0;
 	config->x_max = 0;
 }
 
-static void	resolution(char *line, t_window *win)
+static int	resolution(char *line, t_window *win)
 {
 	int i;
 
@@ -26,6 +26,16 @@ static void	resolution(char *line, t_window *win)
 	while (ft_isdigit(line[i]))
 		i--;
 	win->y = ft_atoi(line + i);
+	if (win->x < 0 || win->y < 0)
+	{
+		ft_printf("Error\nSize of windows x < 0 or y < 0\n");
+		return (-1);
+	}
+	if (win->x > 1920)
+		win->x = 1920;
+	if (win->y > 1080)
+		win->y = 1080;
+	return (0);
 }
 
 static char	*path(char *line)

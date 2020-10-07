@@ -19,16 +19,22 @@ static int	gest_error_arg(int ac, char **av)
 	return (fd);
 }
 
-static void	set_pov(t_cub3d cub3d)
+static void	set_pov(t_cub3d *cub3d)
 {
-	if (cub3d.config.map_ok[(int)cub3d.player.fposy / BLOCK_SIZE][(int)cub3d.player.fposx / BLOCK_SIZE] == 'E')
-		cub3d.config.POV = 2 * M_PI;
-	else if (cub3d.config.map_ok[(int)cub3d.player.fposy / BLOCK_SIZE][(int)cub3d.player.fposx / BLOCK_SIZE] == 'N')
-		cub3d.config.POV = M_PI / 2;
-	else if (cub3d.config.map_ok[(int)cub3d.player.fposy / BLOCK_SIZE][(int)cub3d.player.fposx / BLOCK_SIZE] == 'W')
-		cub3d.config.POV = M_PI;
+	int	y;
+	int	x;
+
+	y = (int)((cub3d->player.fposy + (BLOCK_SIZE/2)) / BLOCK_SIZE);
+	x = (int)((cub3d->player.fposx - (BLOCK_SIZE/2)) / BLOCK_SIZE);
+	printf("%d, %d, %c\n", y, x, cub3d->config.map_ok[y][x]);
+	if (cub3d->config.map_ok[y][x] == 'E')
+		cub3d->config.POV = 2 * M_PI;
+	else if (cub3d->config.map_ok[y][x] == 'N')
+		cub3d->config.POV = M_PI / 2;
+	else if (cub3d->config.map_ok[y][x] == 'W')
+		cub3d->config.POV = M_PI;
 	else
-		cub3d.config.POV = 3 * M_PI_2;
+		cub3d->config.POV = 3 * M_PI_2;
 }
 
 int			main(int ac, char **av)
@@ -50,7 +56,7 @@ int			main(int ac, char **av)
 		return (-1);
 	if (!(cub3d.config.map_ok = ft_parse_map(&cub3d)))
 		return (-1);
-	set_pov(cub3d);
+	set_pov(&cub3d);
 	while (cub3d.config.map_ok[cub3d.config.y_max + 1])
 	{
 		while (cub3d.config.map_ok[cub3d.config.y_max][cub3d.config.x_max] != '\n')
